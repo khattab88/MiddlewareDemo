@@ -26,6 +26,7 @@ namespace WebApp
                 Console.WriteLine("middleware 1 started");
                 await context.Response.WriteAsync("this is middleware 1 \n");
                 await next();
+                Console.WriteLine("middleware 1 ended");
             });
 
             app.Use(async (context, next) =>
@@ -33,6 +34,7 @@ namespace WebApp
                 Console.WriteLine("middleware 2 started");
                 await context.Response.WriteAsync("this is middleware 2 \n");
                 await next();
+                Console.WriteLine("middleware 2 ended");
             });
 
             app.Run(async context => await context.Response.WriteAsync("welcome to terminal middleware"));
