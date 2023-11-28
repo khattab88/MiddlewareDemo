@@ -28,7 +28,14 @@ namespace WebApp
                 await next();
             });
 
-            app.Run(async context => await context.Response.WriteAsync("welcome to middleware"));
+            app.Use(async (context, next) =>
+            {
+                Console.WriteLine("middleware 2 started");
+                await context.Response.WriteAsync("this is middleware 2 \n");
+                await next();
+            });
+
+            app.Run(async context => await context.Response.WriteAsync("welcome to terminal middleware"));
         }
     }
 }
