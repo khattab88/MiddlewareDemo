@@ -40,6 +40,7 @@ namespace WebApp
 
             // branching middleware based on path
             app.Map("/health", HealthCheckHandler);
+            // app.MapWhen(context => context.Request.Query.ContainsKey("health"), HealthCheckHandler);
 
             // terminal middleware
             app.Run(async context => await context.Response.WriteAsync("welcome to terminal middleware"));
