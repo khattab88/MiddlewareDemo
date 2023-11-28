@@ -21,6 +21,13 @@ namespace WebApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.Use(async (context, next) => 
+            {
+                Console.WriteLine("middleware 1 started");
+                await context.Response.WriteAsync("this is middleware 1 \n");
+                await next();
+            });
+
             app.Run(async context => await context.Response.WriteAsync("welcome to middleware"));
         }
     }
