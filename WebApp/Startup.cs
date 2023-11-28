@@ -18,6 +18,7 @@ namespace WebApp
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // register middleware to DI
             services.AddTransient<LoggingMiddleware>();
         }
 
@@ -37,7 +38,20 @@ namespace WebApp
                 Console.WriteLine("inline middleware ended");
             });
 
+            // branching middleware based on path
+            app.Map("/health", HealthCheckHandler);
+
+            // terminal middleware
             app.Run(async context => await context.Response.WriteAsync("welcome to terminal middleware"));
+        }
+
+        private void HealthCheckHandler(IApplicationBuilder app)
+        {
+            app.Run(async context =>
+            {
+                Console.WriteLine("health check middleware");
+                await context.Response.WriteAsync("health check middleware");
+            });
         }
     }
 }
