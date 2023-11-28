@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.Extensions;
 
 namespace WebApp
 {
@@ -21,6 +22,8 @@ namespace WebApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseAppCulture();
+
             app.Use(async (context, next) => 
             {
                 Console.WriteLine("middleware 1 started");
